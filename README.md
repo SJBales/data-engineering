@@ -12,18 +12,4 @@ I am creating a database of compounds used in the treatment of cancer. I want to
 
 # Data Tables
 
-I am planning to create the following tables to start:
-
-- Compounds
-- Sponsors of oncology trials (domcile, headquarters, etc.)
-- Studies (completed, ongoing, etc)
-- Data readouts
-
-Each table will have a dedicated schema and may be expanded to a full database later.
-
-## Compounds Table
-
-- Compound name
-- Mechanism of action
-- Target
-- Route of administration
+See docs/design.md for detailed information on the schema design.
