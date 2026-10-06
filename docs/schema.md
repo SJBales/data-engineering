@@ -10,14 +10,15 @@ study_master:
   - nct_id (primary key)
   - study_title
   - study_long_title
+  - study_acronym
   - sponsor_id (foreign key)
   - compound_id
   - company_id (foreign key)
-  - sponsor_name
+  - lead_sponsor
   - collaborator_id
   - collaborator_names
   - study_type
-  - indications
+  - conditions
 
 study_design (long table where each arm is a record):
   - nct_id (foreign key)
