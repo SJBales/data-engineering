@@ -19,4 +19,6 @@
 
 # Oustanding Tasks
 
-- Define the schema structure for the studies
+- Create a raw layer to store the unprocessed JSON response (land raw tables in supabase)
+- Build the schema structure for the studies
+
