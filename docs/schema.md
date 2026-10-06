@@ -2,7 +2,9 @@
 
 There are three related objects that I want to create tables for: sponsors, compounds and studies. Each object will be anchored by a master table that contains the master records, primary keys and foreign keys for the object. Supplemental tables will supply additional attributes and facts for the main objects.
 
-## Study-Related Schema
+I will persist the raw JSON response in a raw layer.
+
+## Study Tables
 
 I plan to build the following study-related tables:
 
