@@ -19,6 +19,7 @@
 
 # Oustanding Tasks
 
-- Create a raw layer to store the unprocessed JSON response (land raw tables in supabase)
-- Build the schema structure for the studies
+- [x] Create a raw layer to store the unprocessed JSON response (land raw tables in supabase)
+- [x] Build the schema structure for the studies
+- [] Create an algorithm for mastering sponsor names
 
