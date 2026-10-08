@@ -4,6 +4,15 @@ There are three related objects that I want to create tables for: sponsors, comp
 
 I will persist the raw JSON response in a raw layer.
 
+## Raw Layer
+
+raw_response:
+  - nct_id (primary key)
+  - raw_json
+  - params
+  - response_url
+  - fetched_at (primary key)
+
 ## Study Tables
 
 I plan to build the following study-related tables:
