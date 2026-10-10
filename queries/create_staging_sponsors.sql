@@ -14,5 +14,4 @@ select r.nct_id,
 from raw.raw_responses r,
      jsonb_array_elements(
        coalesce(r.raw_json #> '{protocolSection,sponsorCollaboratorsModule,collaborators}', '[]'::jsonb)
-     ) c
-limit 100;
+     ) c;
