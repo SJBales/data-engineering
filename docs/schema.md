@@ -21,6 +21,13 @@ sponsors:
   - raw_name
   - sponsor_class
 
+interventions:
+  - nct_id
+  - drug
+  - type
+  - drug_description
+  - other_info
+
 # Study Tables
 
 I plan to build the following study-related tables:
@@ -31,8 +38,7 @@ study_master:
   - study_long_title
   - study_acronym
   - sponsor_id (foreign key)
-  - compound_id
-  - company_id (foreign key)
+  - compound_id (foreign key)
   - lead_sponsor
   - collaborator_id
   - collaborator_names
