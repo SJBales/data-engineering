@@ -22,4 +22,5 @@
 - [x] Create a raw layer to store the unprocessed JSON response (land raw tables in supabase)
 - [x] Build the schema structure for the studies
 - [] Create an algorithm for mastering sponsor names
-
+- [] Develop algorithm for mastering compound names
+- [] Build staging tables for arms and study design
