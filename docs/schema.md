@@ -4,7 +4,7 @@ There are three related objects that I want to create tables for: sponsors, comp
 
 I will persist the raw JSON response in a raw layer.
 
-## Raw Layer
+# Raw Layer
 
 raw_response:
   - nct_id (primary key)
@@ -13,7 +13,15 @@ raw_response:
   - response_url
   - fetched_at (primary key)
 
-## Study Tables
+# Staging
+
+sponsors:
+  - nct_id
+  - role
+  - raw_name
+  - sponsor_class
+
+# Study Tables
 
 I plan to build the following study-related tables:
 
@@ -47,7 +55,7 @@ study_dates:
   - start_date
   - end_date
 
-## Sponsor Tables
+# Sponsor
 
 sponsor_master:
   - sponsor_id (primary key)
@@ -55,7 +63,7 @@ sponsor_master:
   - sponsor_country
   - sponsor_type
 
-## Compound Tables
+# Compound
 
 compound_master:
   - compound_id (primary key)
