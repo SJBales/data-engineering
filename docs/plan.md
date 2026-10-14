@@ -24,3 +24,7 @@
 - [] Create an algorithm for mastering sponsor names
 - [] Develop algorithm for mastering compound names
 - [] Build staging tables for arms and study design
+
+# Future Extensions
+
+- [] Change blocking technique in the sponsor mastering algorithm from established candidates to embedding ANN
