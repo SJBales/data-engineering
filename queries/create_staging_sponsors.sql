@@ -1,6 +1,6 @@
 create schema if not exists staging;
 
-create table staing.sponsors as
+create table staging.sponsors as
 select nct_id, 
        'lead' as role,
        raw_json #>> '{protocolSection,sponsorCollaboratorsModule,leadSponsor,name}'  as raw_name,
