@@ -28,6 +28,20 @@ interventions:
   - drug_description
   - other_info
 
+# Master
+
+sponsor:
+  - sponsor_id (primary key) --> master_id
+  - canonical_name
+  - class
+
+sponsor_xwalk:
+  - sponsor_id (foreign key)
+  - raw_name
+  - match_method
+  - score
+  - reviewed
+
 # Study Tables
 
 I plan to build the following study-related tables:
