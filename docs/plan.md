@@ -25,7 +25,7 @@
 - [x] Build the crosswalk table for sponsor names
 - [] Develop algorithm for mastering compound names
   - [x] Staging table for interventions
-  - [] Develop logic for embedding business logic
+  - [] Develop logic for embedding asset knowledge
 - [] Build staging tables for arms and study design
 - [] Package existing code into standalone modules in src
 
