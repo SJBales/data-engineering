@@ -28,6 +28,25 @@ interventions:
   - drug_description
   - other_info
 
+# Reference
+
+compound_synonyms:
+ - source
+ - source_id
+ - parent_chembl_id
+ - synonym
+ - synonym_key
+ - syn_type
+
+compound:
+ - compound_key
+ - source
+ - canonical_name
+ - inn
+ - chembl_id
+ - molecule_type
+ - max_phase
+
 # Master
 
 sponsor:
@@ -41,6 +60,24 @@ sponsor_xwalk:
   - match_method
   - score
   - reviewed
+
+compound:
+ - compound_id
+ - compound_key
+ - canonical_name
+ - inn
+ - chembl_id
+ - molecule_type
+ - max_phase
+ - source
+
+compound_xwalk
+- raw_name
+- compound_id (foreign key)
+- match_method
+- matched_text
+- score
+- reviewed
 
 # Study Tables
 
@@ -71,24 +108,6 @@ study_endpoints:
   - exploratory_endpoint
 
 study_dates:
-  - ncti_id (foreign key)
+  - nct_id (foreign key)
   - start_date
   - end_date
-
-# Sponsor
-
-sponsor_master:
-  - sponsor_id (primary key)
-  - sponsor_name
-  - sponsor_country
-  - sponsor_type
-
-# Compound
-
-compound_master:
-  - compound_id (primary key)
-  - compound_name
-  - mechanism_of_action
-  - target
-  - modality
-  - route_of_administration
