@@ -16,7 +16,7 @@ trailing sections (chemical modification names, amendments to previous lists,
 procedure annexes) use different layouts and are skipped.
 
 Usage:
-    uv run python src/extract_inn.py input/pl135.pdf [more.pdf ...] --out output/inn_names.csv
+    uv run python -m clinical_trials_pipeline.inn input/pl135.pdf [more.pdf ...]
 """
 
 import argparse
@@ -26,6 +26,8 @@ from pathlib import Path
 
 import pandas as pd
 import pymupdf
+
+from clinical_trials_pipeline.config import OUTPUT_DIR
 
 # Layout constants (PDF points), measured from List 135
 NAME_X = (55, 62)         # x-position where every name line starts (Latin, EN, FR, ES)
@@ -211,7 +213,7 @@ def extract_inn(pdf_path: str | Path) -> pd.DataFrame:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("pdfs", nargs="+", type=Path, help="WHO Proposed INN list PDF(s)")
-    parser.add_argument("--out", type=Path, default=Path("output/inn_names.csv"))
+    parser.add_argument("--out", type=Path, default=OUTPUT_DIR / "inn_names.csv")
     args = parser.parse_args()
 
     df = pd.concat([extract_inn(p) for p in args.pdfs], ignore_index=True)

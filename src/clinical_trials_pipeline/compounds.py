@@ -14,29 +14,28 @@ Steps:
                  mappings survive re-runs
 
 Usage:
-    uv run python src/compound_mastering.py                   # dry run -> output/*.csv
-    uv run python src/compound_mastering.py --write           # also load Supabase
-    uv run python src/compound_mastering.py --refresh-chembl  # re-pull ChEMBL (~3 min)
+    uv run python -m clinical_trials_pipeline.compounds                   # dry run -> output/*.csv
+    uv run python -m clinical_trials_pipeline.compounds --write           # also load Supabase
+    uv run python -m clinical_trials_pipeline.compounds --refresh-chembl  # re-pull ChEMBL
 """
 
 import argparse
 import json
-import os
 import re
 from dataclasses import dataclass, field
-from pathlib import Path
 
 import pandas as pd
 import requests
-from dotenv import load_dotenv
 from rapidfuzz import fuzz, process
-from sqlalchemy import create_engine, text
+from sqlalchemy import text
 from sqlalchemy.engine import Engine
 
-OUTPUT = Path("output")
-CHEMBL_CACHE = OUTPUT / "chembl_synonyms.csv"
-WHO_INN = OUTPUT / "inn_names.csv"   # from src/extract_inn.py
-UPDATE_SQL = Path("queries/update_compound_master.sql")
+from clinical_trials_pipeline.config import OUTPUT_DIR, QUERIES_DIR
+from clinical_trials_pipeline.db import get_engine, run_sql_file
+
+CHEMBL_CACHE = OUTPUT_DIR / "chembl_synonyms.csv"
+WHO_INN = OUTPUT_DIR / "inn_names.csv"   # from clinical_trials_pipeline.inn
+UPDATE_SQL = QUERIES_DIR / "update_compound_master.sql"
 
 CHEMBL_BASE = "https://www.ebi.ac.uk"
 CHEMBL_FILTERS = ["max_phase__gte=0.5", "molecule_synonyms__syn_type=INN"]
@@ -337,9 +336,7 @@ def load(engine: Engine, compounds: pd.DataFrame, synonyms: pd.DataFrame,
                           index=False)
         xwalk.to_sql("compound_xwalk_candidates", conn, schema="staging", if_exists="replace",
                      index=False)
-    # The SQL file manages its own transaction
-    with engine.connect().execution_options(isolation_level="AUTOCOMMIT") as conn:
-        conn.exec_driver_sql(UPDATE_SQL.read_text())
+    run_sql_file(engine, UPDATE_SQL)
 
 
 def main() -> None:
@@ -348,8 +345,7 @@ def main() -> None:
     parser.add_argument("--refresh-chembl", action="store_true", help="re-pull ChEMBL synonyms")
     args = parser.parse_args()
 
-    load_dotenv()
-    engine = create_engine(os.getenv("SUPABASE_PROJECT_URL"))
+    engine = get_engine()
 
     if args.refresh_chembl or not CHEMBL_CACHE.exists():
         print("Fetching ChEMBL synonyms...")
@@ -362,12 +358,12 @@ def main() -> None:
     interventions = pd.read_sql("select * from staging.interventions", engine)
     candidates, xwalk, review = match_interventions(interventions, lexicon, compounds)
 
-    xwalk.to_csv(OUTPUT / "compound_xwalk_candidates.csv", index=False)
-    review.to_csv(OUTPUT / "compound_review.csv", index=False)
+    xwalk.to_csv(OUTPUT_DIR / "compound_xwalk_candidates.csv", index=False)
+    review.to_csv(OUTPUT_DIR / "compound_review.csv", index=False)
     print(f"Matched: {xwalk.raw_name.nunique()} intervention strings -> "
           f"{xwalk.compound_key.nunique()} compounds")
     print(xwalk.match_method.value_counts().to_string())
-    print(f"Review queue: {len(review)} rows -> {OUTPUT / 'compound_review.csv'}")
+    print(f"Review queue: {len(review)} rows -> {OUTPUT_DIR / 'compound_review.csv'}")
     print(review.category.value_counts().to_string())
 
     if args.write:
