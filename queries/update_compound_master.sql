@@ -1,6 +1,6 @@
 /*
 Merge the latest matching run (staging.compound_candidates /
-staging.compound_xwalk_candidates, written by src/compound_mastering.py) into
+staging.compound_xwalk_candidates, written by clinical_trials_pipeline.compounds) into
 the master tables. compound_ids are stable across runs and reviewed mappings
 are never overwritten.
 */
