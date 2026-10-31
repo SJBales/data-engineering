@@ -23,7 +23,7 @@
 - [x] Build the schema structure for the studies
 - [x] Create an algorithm for mastering sponsor names
 - [x] Build the crosswalk table for sponsor names
-- [] Develop algorithm for mastering compound names
+- [x] Develop algorithm for mastering compound names
 - [] Package existing code into standalone modules in src
 
 # Future Extensions
