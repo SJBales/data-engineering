@@ -20,7 +20,6 @@ Usage:
 """
 
 import argparse
-import json
 import re
 from dataclasses import dataclass, field
 
@@ -253,13 +252,9 @@ def scan(raw: str, lexicon: dict[str, str]) -> Scan:
 
 
 def parse_aliases(other_info) -> list[str]:
-    if not isinstance(other_info, str):
+    if not isinstance(other_info, list):
         return []
-    try:
-        values = json.loads(other_info)
-    except json.JSONDecodeError:
-        values = [other_info]
-    return [a.strip() for v in values for a in re.split(r"[;,]", str(v)) if a.strip()]
+    return [a.strip() for v in other_info for a in re.split(r"[;,]", str(v)) if a.strip()]
 
 
 def match_interventions(interventions: pd.DataFrame, lexicon: dict[str, str],

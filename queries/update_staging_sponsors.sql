@@ -14,5 +14,5 @@ select r.nct_id,
 from raw.raw_responses r,
      jsonb_array_elements(
        coalesce(r.raw_json #> '{protocolSection,sponsorCollaboratorsModule,collaborators}', '[]'::jsonb)
-     ) c;   -- keep the latest version of each study
+     ) c;
 commit;
