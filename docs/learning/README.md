@@ -12,5 +12,6 @@ Each note answers:
 
 ## Notes
 
-- [01: Raw layer](01-raw.md)
+- [01: Raw Layer](01-raw.md)
 - [02: Staging Layer](02-staging.md)
+- [03: Master Layer](03-master.md)
