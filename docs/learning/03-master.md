@@ -38,8 +38,12 @@ Core idea: the comparison measures evidence, not resemblance. We want to answer 
 - Disagreement counts too: a distinctive word on only one side points away from a match
 - Be clear what the evidence is about: a shared word can identify a family rather than one entity
 
-### Clasify
+### Classify
 
 The classification step either rejects (non-match) a match, flags a possible match for review (review) or merges the pair automatically (match). A false merge corrupts master silently, a missed match leaves a viable duplicated and review costs human time. Strict auto-merge thresholds and low thresholds for review add manual burden to validating or rejecting entity matches. Current thresholds of 80 for review and 92 for match are guesses and will be tuned by hand-reviewing entities to identify matches.
 
 Token or string matches have weaknesses as they can be corrupted by long strings with overlapping tokens diluting the total match score. Generic words can be stripped from strings so the most relevant tokens are left. Overdoing stripping generic words removes information that can be used to confirm or reject a match. Evidence rules like token veto (i.e. disagreement on a key token) and token-level matching reduce the dilution effect. Differences in token counts that autotrigger a manual review account for possible overlap of a smaller token series in a larger string.
+
+## Cluster
+
+Classify decides pairs. Cluster turns those pairs into groups. Following chains of pairs is single linkage. Creating a single group of pairwise comparisons has a weakness: links between more distant pairs can fall below the match threshold. For example, a group based on three records that are compared pairwise as A --> B --> C where each match is represented by an arrow. Each arrow could clear the threshold for the similarity score, but A --> C were never directly compared and it could fail to clear the threshold. To solve this, all possible matches in a group must be compared to create a complete linkage. Complete linkage stops a chain of weak links from merging different entities. The tradeoff is cost and splitting true groups. If a pairwise match fails to clear the threshold when comparing across the group but the entities are actually the same, a proper cluster could be split into a smaller group. Other methods like hierarchical clustering, graph methods and probabilistic models do not rely on single linkages and do not have the same limitation.
