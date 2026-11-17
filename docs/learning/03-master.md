@@ -47,3 +47,13 @@ Token or string matches have weaknesses as they can be corrupted by long strings
 ## Cluster
 
 Classify decides pairs. Cluster turns those pairs into groups. Following chains of pairs is single linkage. Creating a single group of pairwise comparisons has a weakness: links between more distant pairs can fall below the match threshold. For example, a group based on three records that are compared pairwise as A --> B --> C where each match is represented by an arrow. Each arrow could clear the threshold for the similarity score, but A --> C were never directly compared and it could fail to clear the threshold. To solve this, all possible matches in a group must be compared to create a complete linkage. Complete linkage stops a chain of weak links from merging different entities. The tradeoff is cost and splitting true groups. If a pairwise match fails to clear the threshold when comparing across the group but the entities are actually the same, a proper cluster could be split into a smaller group. Other methods like hierarchical clustering, graph methods and probabilistic models do not rely on single linkages and do not have the same limitation.
+
+## Golden Record
+
+Survivorship: deciding what attributes are attached to the master reocrd that appear in the individual entities. The canonical example for this project is sponsor_class.
+
+- A master row needes one value per field, chosen by a survivorship rule
+- Names: curated or external first, then most frequent. Other names remain as aliases in the crosswalk
+- Attributes like class: take the most commone value from lead rows, and log disagreement rather than hiding it.
+- Keep trial-level facts at the trial level, and treat master attributes as summaries
+- A calss conflict inside a cluster can be a sign the cluster is wrong
