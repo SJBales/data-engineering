@@ -57,3 +57,21 @@ Survivorship: deciding what attributes are attached to the master reocrd that ap
 - Attributes like class: take the most commone value from lead rows, and log disagreement rather than hiding it.
 - Keep trial-level facts at the trial level, and treat master attributes as summaries
 - A calss conflict inside a cluster can be a sign the cluster is wrong
+
+## Keeping Decisions
+
+Decision are made on which pairs should be combined into an entity each time a new batch of input data is run through the mastering process (standardize --> compare --> classify --> cluster --> golden record). Changing the identifier without warning or traceability for a master record disrupts downstream uses like ML models, dashboards and applications. There are two things the decision making process needs to preserve:
+
+1. Stable identity: an entity's ID should keep meaning the same entity across runs, even when matching improves. Three core tests:
+  - Rename --> the best name for an entity changes, the ID must not
+  - Merge --> entities A and B turn out to be one. One ID survives, and the other should redirect to it other than vanish
+  - Split --> cluster needs to be separated into two entities
+
+Core idea: ID must come from something that doesn't change when the name or grouping does. Core approach is to use a surrogate key (an ID that is assigned once and never recomputed from the data).
+
+2. Remembering decisions: a human ruling is data and needs to be stored as its own record.
+
+Two underlying principles:
+
+  - Idempotent: running the process twice gives the same state, and human work isn't wiped out
+  - Separate derived data from decisions: the machine's output can be rebuilt freely, while human input is protected
