@@ -19,8 +19,8 @@ Each unit of work goes through: **understand → design → build → verify →
 - [ ] **Phase 0: Architecture review** ← current
   - [x] A. Raw layer ([notes](learning/01-raw.md))
   - [x] B. Staging ([notes](learning/02-staging.md))
-  - [ ] C. Reference and master (entity resolution) ← next
-  - [ ] D. The study hub and data modeling
+  - [x] C. Reference and master (entity resolution) ([notes](learning/03-master.md))
+  - [ ] D. The study hub and data modeling ← next
   - [ ] E. Marts and probability of success
   - [ ] F. Orchestration and operations
 - [ ] **Phase 1: Trustworthy foundation**: dedupe staging, stable sponsor IDs, re-runnable steps
